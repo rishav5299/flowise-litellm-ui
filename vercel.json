@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "litellm_wrapper.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb" }
+    },
+    {
+      "src": "ui",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/chat",
+      "dest": "litellm_wrapper.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "ui/$1"
+    }
+  ],
+  "env": {
+    "FLOWISE_API_URL": "https://flowise-lab.enigmaa.in/api/v1/prediction/ec9c9e0a-cf3d-44ce-b0c6-e5a2bb2fcf20"
+  }
+}
